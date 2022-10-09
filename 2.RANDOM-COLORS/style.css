@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+}
+
+h1 {
+    font-size: 10rem;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.letter {
+    transition: color 1s;
+    font-family: 'Roboto';
+}
+
+button {
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
