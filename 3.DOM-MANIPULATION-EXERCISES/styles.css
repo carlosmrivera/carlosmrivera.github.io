@@ -1,0 +1,91 @@
+body {
+    height: 100vh;
+    background-color: black;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+aside {
+    background-color: darkgrey;
+    padding: 20px;
+    min-width: 20vw;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.tasklist {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1rem;
+}
+
+.tasklist li {
+    display: flex;
+    place-items: center;
+}
+
+input[type='checkbox'] {
+    background-color: initial;
+    cursor: pointer;
+    margin: 3px 15px 3px 4px;
+    padding: 5px;
+    border: none;
+    width: 25px;
+    height: 25px;
+}
+
+#container {
+    display: flex;
+    justify-content: space-around;
+    width: 40vw;
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 30px 0;
+}
+
+.btn-row {
+    margin-bottom: 10px;}
+
+.header, .footer {
+    min-height: 100px;
+    width: 40vw;
+    background-color: rgba(255, 255, 255, 0.12);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chain  {
+    display: none;
+}
+
+.footer.main p span.chain {
+    display: inline;
+    color: green;
+}
+
+.btn {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: blanchedalmond;
+}
+
+ul, ol {
+    font-size: 2rem;
+}
+
+li {
+    margin: 10px 0px;
+    padding: 10px;
+}
+
+.bg-green {
+    background-color: green;
+}
