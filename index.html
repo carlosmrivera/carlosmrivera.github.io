@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Todos Exercise</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <script src="app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <container id="main-container" class="hide">
+            <aside>
+                <h1>Hello <span id="user-name"></span>.</h1>
+                <h4>You have <span id="user-todos-amount"></span> todos on system!</h4>
+                <h4>When you are done, you can <a href="#" id="logout">LOGOUT HERE!</a></h4>
+
+                <p>You can add new todos in an easy way. You just need to write below and pressthe button!</p>
+
+                <form id="add-todo-form">
+                    <div>
+                        <label for="">Todo</label>
+                        <textarea placeholder="Describe your next todo." rows="2" name="newTodo" id="newTodo"></textarea>
+                    </div>
+
+                    <button id="add-todo-btn">
+                        Add new todo
+                    </button>
+                </form>
+            </aside>
+
+            <main>
+                <h1>Todos list</h1>
+                <div id="todos-container">
+                    
+                </div>  
+            </main>
+        </container>
+        <div id="user-list">
+            <div id="controls">
+                
+                <div id="users"></div>
+
+                <div id="addUser" class="profile-container">
+                    <span class="mdi mdi-plus add-user-icon"></span>
+                </div>
+
+            </div>
+
+            <form class="form-inline hidden" id="user-form">
+                <div>
+                    <label for="name">Username</label>
+                    <input name="name" id="name" type="text" placeholder="Your new username">
+                </div>
+
+                <div>
+                    <label for="name">Avatar number</label>
+                    <input name="avatar" id="avatar" type="number" min="1" max="100" value="1" step="1">
+                </div>
+
+                <button>
+                    Add
+                </button>
+            </form>
+            
+        </div>        
+    </div>
+</body>
+</html>
