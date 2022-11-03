@@ -30,4 +30,13 @@ describe("Servers test (with setup and tear-down)", function () {
         expect(serverTbody.getElementsByTagName('tr').length).toEqual(length);
     });
 
+    afterAll(function () {
+        // teardown logic
+        //I dont need to do anything here but an example of what I would do
+        serverNameInput.value = '';
+        allServers = {};
+        
+    })
+
+
 });
