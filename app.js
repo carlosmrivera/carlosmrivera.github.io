@@ -7,6 +7,7 @@
 
  const WIDTH = 7;
  const HEIGHT = 6;
+ let testing = false;
  
  let board = []; // array of rows, each row is array of cells  (board[y][x])
  let currPlayer = 1; // active player: 1 or 2
@@ -20,7 +21,7 @@ const makeBoard = () => {
     // set "board" to empty HEIGHT x WIDTH matrix array
     //this can also be used to start a new game
     board = Array.from({ length: HEIGHT }, () => Array.from({ length: WIDTH }, () => null));
-    toggleGameStatus(false)
+    finishGame(false)
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -28,6 +29,7 @@ const makeBoard = () => {
 const  makeHtmlBoard = () => {
     // get "htmlBoard" variable from the item in HTML w/ID of "board"
     const htmlBoard = document.getElementById('board')
+    htmlBoard.innerHTML = ''
 
     // TODO: add comment for this code
     //create the top row to handle the event propagation
@@ -92,12 +94,12 @@ const placeInTable = (y, x) => {
 /** endGame: announce game end */
 
 const endGame = (msg = 'Game has ended') => {
-    alert(msg)
-    toggleGameStatus(true)
+    !testing && alert(msg)
+    finishGame(true)
     lockBoard()
 }
-/** toggleGameStatus: change isGameEnded variable according to received parameter */
-const toggleGameStatus = (ended = false) => {
+/** finishGame: change isGameEnded variable according to received parameter */
+const finishGame = (ended = false) => {
     isGameEnded = ended
 }
 
@@ -175,7 +177,6 @@ const checkForWin = () => {
         );
 
         if(result) {
-            console.log('Winning cells: ', cells)
             colorWinningCells(cells)
         }
 
