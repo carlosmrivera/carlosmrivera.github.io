@@ -5,41 +5,47 @@
  * board fills (tie)
  */
 
-let WIDTH = 7;
-let HEIGHT = 6;
+ const WIDTH = 7;
+ const HEIGHT = 6;
+ 
+ let board = []; // array of rows, each row is array of cells  (board[y][x])
+ let currPlayer = 1; // active player: 1 or 2
+ let isGameEnded = false;
 
-let currPlayer = 1; // active player: 1 or 2
-let board = []; // array of rows, each row is array of cells  (board[y][x])
-
-/** makeBoard: create in-JS board structure:
+ /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
  */
 
-function makeBoard() {
+const makeBoard = () => {
     // set "board" to empty HEIGHT x WIDTH matrix array
+    //this can also be used to start a new game
     board = Array.from({ length: HEIGHT }, () => Array.from({ length: WIDTH }, () => null));
+    toggleGameStatus(false)
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
-function makeHtmlBoard() {
+const  makeHtmlBoard = () => {
     // get "htmlBoard" variable from the item in HTML w/ID of "board"
     const htmlBoard = document.getElementById('board')
-    
+
     // TODO: add comment for this code
+    //create the top row to handle the event propagation
     const top = document.createElement("tr");
     top.setAttribute("id", "column-top");
     top.addEventListener("click", handleClick);
 
+    //dynamically creates the row cells and generate the unique id for each one
     for (let x = 0; x < WIDTH; x++) {
         const headCell = document.createElement("td");
         headCell.setAttribute("id", x);
         top.append(headCell);
     }
 
+    //append the created top row to the board 
     htmlBoard.append(top);
 
-    // TODO: add comment for this code
+    // this code loops through the bidimensional array and place the game cells into the board
     for (let y = 0; y < HEIGHT; y++) {
         const row = document.createElement("tr");
         for (let x = 0; x < WIDTH; x++) {
@@ -51,49 +57,81 @@ function makeHtmlBoard() {
     }
 }
 
+/** lockBoard: This will lock the UI of the board after a game has ended */
+const lockBoard = () => {
+    const top = document.getElementById('column-top');
+    top.classList.add('locked')
+    top.removeEventListener('click', handleClick);
+}
+
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
-function findSpotForCol(x) {
-    // TODO: write the real version of this, rather than always returning 0
-    const y = [...board].reverse().findIndex((arr, i) => arr[x] === null)
-    return y !== -1 ? y : null; 
+const findSpotForCol = (x) => {
 
-    [].reverse()
+    for (let i = board.length -1; i >= 0; i--) {
+        if (board[i][x] === null) {
+            return i
+        }
+    }
+
+    return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
 
-function placeInTable(y, x) {
-    // TODO: make a div and insert into correct table cell
+const placeInTable = (y, x) => {
+    // make a div and insert into correct table cell
     const td = document.getElementById(`${y}-${x}`)
     const div = document.createElement('div')
-    console.log({x,y})
-    div.classList.add('piece', 'p1')
+
+    div.classList.add('piece', currPlayer == 1 ? 'p1' : 'p2')
 
     td.append(div)
 }
 
 /** endGame: announce game end */
 
-function endGame(msg) {
-    // TODO: pop up alert message
+const endGame = (msg = 'Game has ended') => {
+    alert(msg)
+    toggleGameStatus(true)
+    lockBoard()
+}
+/** toggleGameStatus: change isGameEnded variable according to received parameter */
+const toggleGameStatus = (ended = false) => {
+    isGameEnded = ended
+}
+
+/** updateBoard: place the player numnber into x,y coordinate board array */
+const updateBoard = (y, x) => {
+    board[y][x] = currPlayer
+}
+
+/** switchPlayers: Switchs current active player number  */
+
+const switchPlayers = () => {
+    currPlayer = currPlayer == 1 ? 2 : 1
 }
 
 /** handleClick: handle click of column top to play piece */
-
-function handleClick(evt) {
+const handleClick = (evt) => {
+    //guard clause to prevent the game to continue after is ended
+    if(isGameEnded) {
+        return
+    }    
+    
     // get x from ID of clicked cell
-    var x = +evt.target.id;
+    const x = +evt.target.id;
 
     // get next spot in column (if none, ignore click)
-    var y = findSpotForCol(x);
+    const y = findSpotForCol(x);
     if (y === null) {
         return;
     }
 
     // place piece in board and add to HTML table
-    // TODO: add line to update in-memory board
     placeInTable(y, x);
+    //update in-memory board
+    updateBoard(y, x);
 
     // check for win
     if (checkForWin()) {
@@ -101,21 +139,33 @@ function handleClick(evt) {
     }
 
     // check for tie
-    // TODO: check if all cells in board are filled; if so call, call endGame
+    // check if all cells in board are filled; if so call, call endGame
+    board.every(arr => arr.every(cell => cell !== null)) && endGame('Game has ended in Tie')
 
     // switch players
-    // TODO: switch currPlayer 1 <-> 2
+    // switch currPlayer 1 <-> 2
+    switchPlayers()
+}
+
+const colorWinningCells = (cells) => {
+    cells.forEach( ([y, x]) => {
+        const cell = document.getElementById(`${y}-${x}`);
+        const piece = cell.querySelector('.piece')
+        piece.classList.add('winner')
+    });
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
-function checkForWin() {
-    function _win(cells) {
+const checkForWin = () => {
+    const _win = (cells) => {
         // Check four cells to see if they're all color of current player
         //  - cells: list of four (y, x) cells
         //  - returns true if all are legal coordinates & all match currPlayer
 
-        return cells.every(
+
+        //add a modification to add a class to the winning cells
+        const result =  cells.every(
             ([y, x]) =>
                 y >= 0 &&
                 y < HEIGHT &&
@@ -123,16 +173,29 @@ function checkForWin() {
                 x < WIDTH &&
                 board[y][x] === currPlayer
         );
+
+        if(result) {
+            console.log('Winning cells: ', cells)
+            colorWinningCells(cells)
+        }
+
+        return result
     }
 
-    // TODO: read and understand this code. Add comments to help you.
+    // read and understand this code. Add comments to help you.
 
-    for (var y = 0; y < HEIGHT; y++) {
-        for (var x = 0; x < WIDTH; x++) {
-            var horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-            var vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-            var diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-            var diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+    //iterates over the array height
+    for (let y = 0; y < HEIGHT; y++) {
+        //iterates over the array rows
+        for (let x = 0; x < WIDTH; x++) {
+            //try to find a match in horizontal
+            let horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
+            //try to find a match in vertical
+            let vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
+            //try to find a match in Diagonal to the right
+            let diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
+            //try to find a match in Diagonal to the left
+            let diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
             if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
                 return true;
