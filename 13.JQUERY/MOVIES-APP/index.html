@@ -13,7 +13,7 @@
     <container>
         <div class="form">
             <h1>Add a movie!</h1>
-            <form>
+            <form id="form">
                 <div class="group">
                     <label for="movie">Which Movie?</label>
                     <input type="text">
@@ -23,9 +23,26 @@
                     <label for="movie">What's the rating?</label>
                     <input type="text">
                 </div>
+
+                <div class="group">
+                    <button type="submit">Add movie</button>
+                </div>
             </form>
         </div>
-        <div class="movies"></div>
+        <div class="movies">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-order-by="name" data-order="">Movie</th>
+                        <th data-order-by="rating" data-order="">Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
     </container>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
