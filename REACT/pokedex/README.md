@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+#Ended looks like
+![alt](https://github.com/carlosmrivera/carlosmrivera.github.io/blob/main/REACT/pokedex/sc.png?raw=true)
+#React Props: Pokedex
+This exercise lets you practice using React components and properties.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create a Pokemon application (an index listing of Pokemon, a pokedex) that displays an interface that looks like this:
 
-## Available Scripts
+![alt](http://curric.rithmschool.com/springboard/exercises/react-props-pokedex/_images/pokedex.png)
 
-In the project directory, you can run:
+##To create the pokedex, you should use 3 components:
 
-### `npm start`
+####App
+This should just render a single Pokedex component.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+(It’s common for the top-level app to not have direct logic in it, but to render the top application object — this becomes useful when you build sites that compose several different parts together.)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+####Pokedex
+Is provided, via props, an array of objects describing different pokemon, and renders a sequence of Pokecard components.
+####Pokecard
+Shows a single Pokemon, with their name, image, and type.
+In your App component, it should pass the following list of pokemon to the Pokedex.
 
-### `npm test`
+`[
+  {id: 4,   name: 'Charmander', type: 'fire',     base_experience: 62},
+  {id: 7,   name: 'Squirtle',   type: 'water',    base_experience: 63},
+  {id: 11,  name: 'Metapod',    type: 'bug',      base_experience: 72},
+  {id: 12,  name: 'Butterfree', type: 'flying',   base_experience: 178},
+  {id: 25,  name: 'Pikachu',    type: 'electric', base_experience: 112},
+  {id: 39,  name: 'Jigglypuff', type: 'normal',   base_experience: 95},
+  {id: 94,  name: 'Gengar',     type: 'poison',   base_experience: 225},
+  {id: 133, name: 'Eevee',      type: 'normal',   base_experience: 65}
+]`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For each pokemon, their image source should be: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png.
 
-### `npm run build`
+#Further Study: More Pokemon!»
+###Pokegame Component»
+Modify your component hierarchy so that App renders a component called Pokegame. Pokegame should take your list of 8 pokemon and randomly assign them into two hands of 4 cards each. It should then render two Pokedex components, one for each hand.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once you’ve got this working, modify your Pokegame so that it also calculates the total experience for each hand of pokemon. It should pass this total to the Pokedex.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Next, have the Pokegame component determine which hand is the “winner,” where the winning hand is the one with the higher total experience. Then modify the Pokedex component one more time so that it accepts a prop of isWinner. If the Pokedex is the winning one, it should display the message *“THIS HAND WINS!”* at the bottom of the deck.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Now when you load the page, you should see two different hands with a randomly changing winner every time you refresh.
