@@ -1,0 +1,40 @@
+.Eightball {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    color: #fff;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.EightBall-container {
+    padding: 20px;
+}
+
+.EightBall-text {
+    text-align: center;
+    font-size: x-large;
+}
+
+.EightBall-reset {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.counter-table {
+    width: 300px;
+}
+
+.counter-table > table {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #fff;
+}

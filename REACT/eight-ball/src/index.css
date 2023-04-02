@@ -1,0 +1,17 @@
+body,
+#root {
+    min-height: 100vh;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.486);
+}
+
+#root {
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+}
